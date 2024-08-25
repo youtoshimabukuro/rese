@@ -5,20 +5,33 @@
 <link rel="stylesheet" href="{{ asset('css/index.css') }}">
 @endsection
 
+@section('symbol')
+<link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+@endsection
+
 @section('search')
 <div class="search">
-    <form action="">
-        <select name="select">
-            <option value="太郎">All area</option>
-            <option value="次郎">次郎</option>
-            <option value="三郎">三郎</option>
+    <form action="/reservation/search" method="post">
+    @csrf
+        <select name="city" onchange="this.form.submit()">
+            @foreach($cities as $city)
+                <option value="{{$city->id}}" @if(request('city') == $city->id) selected @endif>
+                {{$city->city}}
+            </option>
+            @endforeach
         </select>
-        <select name="select">
-            <option value="太郎">All genre</option>
-            <option value="次郎">次郎</option>
-            <option value="三郎">三郎</option>
+        <select name="genre" onchange="this.form.submit()">
+            @foreach ($genres as $genre)
+                <option value="{{$genre->id}}" @if(request('genre') == $genre->id) selected @endif>
+                {{$genre->genre}}
+                </option>
+            @endforeach
         </select>
-        <input type="search" placeholder="Search">
+        <span class="material-symbols-outlined">
+            search
+        </span>
+        <input type="search" name="search" placeholder="Search" value="{{request('search')}}">
     </form>
 </div>
 @endsection
@@ -27,23 +40,32 @@
 
 <div class="shop-all">
     <div class="shop-all_inner">
+        @foreach ($shops as $shop)
         <div class="shop-all_item">
             <div class="shop-img-box">
-                <img src="https://coachtech-matter.s3-ap-northeast-1.amazonaws.com/image/sushi.jpg" alt=""
+                <img src="{{$shop->shop_img}}" alt=""
                     class="shop-img">
             </div>
-            <h4 class="shop-name">仙人</h4>
+            <h4 class="shop-name">{{$shop->shop_name}}</h4>
             <div class="shop-tag-box">
-                <p class="shop-city">#東京</p>
-                <p class="shop-genre">#寿司</p>
+                <p class="shop-city">#{{$shop->City->city}}</p>
+                <p class="shop-genre">#{{$shop->genre->genre}}</p>
             </div>
             <div class="shop-bottom-box">
                 <div class="shop-btn">
-                    <button>詳しく見る</button>
+                    <form action="reservations/shopDetail" method="post">
+                    @csrf
+                        <input type="hidden" name="id" value="{{$shop->id}}">
+                        <button>詳しく見る</button>
+                    </form>
                 </div>
-                <input type="checkbox" id="1" name="example2"><label for="1" class="heart"></label>
+                <form action="" class="favorite-form">
+                    <input type="checkbox" id="{{$shop->id}}" name="favorite">
+                    <label for="{{$shop->id}}" class="heart"></label>
+                </form>
             </div>
         </div>
+        @endforeach
     </div>
 </div>
 

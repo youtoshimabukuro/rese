@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ReservationController;
+use App\Http\Middleware\ReservationMiddleware;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,7 +15,8 @@ use App\Http\Controllers\ReservationController;
 |
 */
 
-Route::get('/', [ReservationController::class,'index']);
-Route::get('/shop_detail', [ReservationController::class, 'shopDetail']);
-Route::get('/register', [AuthController::class,'register']);
-Route::get('/login', [AuthController::class, 'login']);
+Route::middleware('auth')->group(function () {
+    Route::get('/', [ReservationController::class,'index']);
+    Route::post('/reservation/search', [ReservationController::class, 'search']);
+    Route::post('/reservations/shopDetail', [ReservationController::class, 'shopDetail'])->middleware(ReservationMiddleware::class);
+});

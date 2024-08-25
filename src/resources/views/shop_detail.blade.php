@@ -12,20 +12,21 @@ detail.css') }}">
     <div class="shop-detail_inner">
         <div class="shop-description">
             <div class="shop-description-top">
-                <button>&lt;</button>
-                <h2>仙人</h2>
+                <form action="/" method="get">
+                @csrf
+                    <button>&lt;</button>
+                </form>
+                <h2>{{$shop['shop_name']}}</h2>
             </div>
             <div class="shop-description-img">
-                <img src="https://coachtech-matter.s3-ap-northeast-1.amazonaws.com/image/sushi.jpg" alt="">
+                <img src="{{$shop['shop_img']}}" alt="">
             </div>
             <div class="shop-description-tag">
-                <p class="shop-city">#東京</p>
-                <p class="shop-genre">#寿司</p>
+                <p class="shop-city">#{{$shop->city->city}}</p>
+                <p class="shop-genre">#{{$shop->genre->genre}}</p>
             </div>
             <div class="shop-description-text">
-                <p>
-                    料理長厳選の食材から作る寿司を用いたコースをぜひお楽しみください。食材・味・価格、お客様の満足度を徹底的に追及したお店です。特別な日のお食事、ビジネス接待まで気軽に使用することができます。
-                </p>
+                <p>{{$shop->shop_overview}}</p>
             </div>
         </div>
         <div class="reservation">
@@ -48,19 +49,19 @@ detail.css') }}">
                     <table class="reservation-table">
                         <tr>
                             <th>Shop</th>
-                            <td>仙人</td>
+                            <td><input type="text" name="shop" value="仙人" readonly></td>
                         </tr>
                         <tr>
                             <th>Date</th>
-                            <td>2021-04-01</td>
+                            <td><input type="text" name="date" value="2021-04-01" readonly></td>
                         </tr>
                         <tr>
                             <th>Time</th>
-                            <td>17:00</td>
+                            <td><input type="text" name="time" value="17:00" readonly></td>
                         </tr>
                         <tr>
                             <th>Number</th>
-                            <td>1人</td>
+                            <td><input type="text" name="number" value="1人" readonly></td>
                         </tr>
                     </table>
                 </div>

@@ -14,14 +14,25 @@
 <div class="login">
     <div class="login_inner">
         <h1>Login</h1>
-        <form class="login_form" action="">
+        <form class="login_form" action="/login" method="post">
+        @csrf
             <div class="login_form-item">
                 <span class="material-symbols-outlined">mail</span>
-                <input type="email" placeholder="Email">
+                <input type="email" name="email" value="{{ old('email') }}" placeholder="Email">
+            </div>
+            <div class="form__error">
+            @error('email')
+            {{ $message }}
+            @enderror
             </div>
             <div class="login_form-item">
                 <span class="material-symbols-outlined">lock</span>
-                <input type="password" placeholder="password">
+                <input type="password" name="password" placeholder="password">
+            </div>
+            <div class="form__error">
+            @error('password')
+            {{ $message }}
+            @enderror
             </div>
             <div class="login_form-btn">
                 <input class="" type="submit" value="ログイン">

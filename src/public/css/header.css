@@ -126,6 +126,17 @@ body {
     opacity: 0.5;
 }
 
+.header-logo ul li form button {
+    font-size: 2vw;
+    border: none;
+    cursor: pointer;
+    color: rgb(33, 75, 224);
+}
+
+.header-logo ul li form button:hover {
+    opacity: 0.5;
+}
+
 .header-logo h1 {
     width: 60%;
     height: 100%;

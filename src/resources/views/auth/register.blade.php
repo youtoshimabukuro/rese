@@ -14,18 +14,34 @@
 <div class="register">
     <div class="register_inner">
         <h1>Registration</h1>
-        <form class="register_form" action="">
+        <form class="register_form" action="\register" method="post">
+            @csrf
             <div class="register_form-item">
                 <span class="material-symbols-outlined">person</span>
-                <input type="text" placeholder="Username">
+                <input type="text" name="name" value="{{ old('name') }}" placeholder="Username">
+            </div>
+            <div class="form__error">
+                @error('name')
+                    {{ $message }}
+                @enderror
             </div>
             <div class="register_form-item">
                 <span class="material-symbols-outlined">mail</span>
-                <input type="email" placeholder="Email">
+                <input type="email" name="email" value="{{ old('email') }}" placeholder="Email">
+            </div>
+            <div class="form__error">
+                @error('email')
+                    {{ $message }}
+                @enderror
             </div>
             <div class="register_form-item">
                 <span class="material-symbols-outlined">lock</span>
-                <input type="password" placeholder="password">
+                <input type="password" name="password" placeholder="password">
+            </div>
+            <div class="form__error">
+                @error('password')
+                    {{ $message }}
+                @enderror
             </div>
             <div class="register_form-btn">
                 <input class="" type="submit" value="登録">
