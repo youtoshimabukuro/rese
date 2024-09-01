@@ -18,7 +18,7 @@
             @foreach($cities as $city)
                 <option value="{{$city->id}}" @if(request('city') == $city->id) selected @endif>
                 {{$city->city}}
-            </option>
+                </option>
             @endforeach
         </select>
         <select name="genre" onchange="this.form.submit()">
@@ -41,30 +41,30 @@
 <div class="shop-all">
     <div class="shop-all_inner">
         @foreach ($shops as $shop)
-        <div class="shop-all_item">
-            <div class="shop-img-box">
-                <img src="{{$shop->shop_img}}" alt=""
-                    class="shop-img">
-            </div>
-            <h4 class="shop-name">{{$shop->shop_name}}</h4>
-            <div class="shop-tag-box">
-                <p class="shop-city">#{{$shop->City->city}}</p>
-                <p class="shop-genre">#{{$shop->genre->genre}}</p>
-            </div>
-            <div class="shop-bottom-box">
-                <div class="shop-btn">
-                    <form action="reservations/shopDetail" method="post">
-                    @csrf
-                        <input type="hidden" name="id" value="{{$shop->id}}">
-                        <button>詳しく見る</button>
+            <div class="shop-all_item">
+                <div class="shop-img-box">
+                    <img src="{{$shop->shop_img}}" alt=""
+                        class="shop-img">
+                </div>
+                <h4 class="shop-name">{{$shop->shop_name}}</h4>
+                <div class="shop-tag-box">
+                    <p class="shop-city">#{{$shop->City->city}}</p>
+                    <p class="shop-genre">#{{$shop->genre->genre}}</p>
+                </div>
+                <div class="shop-bottom-box">
+                    <div class="shop-btn">
+                        <form action="/shopDetail" method="post">
+                        @csrf
+                            <input type="hidden" name="id" value="{{$shop->id}}">
+                            <button>詳しく見る</button>
+                        </form>
+                    </div>
+                    <form action="" class="favorite-form">
+                        <input type="checkbox" id="{{$shop->id}}" name="favorite">
+                        <label for="{{$shop->id}}" class="heart"></label>
                     </form>
                 </div>
-                <form action="" class="favorite-form">
-                    <input type="checkbox" id="{{$shop->id}}" name="favorite">
-                    <label for="{{$shop->id}}" class="heart"></label>
-                </form>
             </div>
-        </div>
         @endforeach
     </div>
 </div>

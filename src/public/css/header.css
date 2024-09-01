@@ -66,6 +66,7 @@ body {
 
 .menu-btn span:nth-child(1) {
     top: 0.9vw;
+    height: 4%;
 }
 
 .menu-btn span:nth-child(2) {

@@ -2,8 +2,7 @@
 @extends('layouts.app')
 
 @section('css')
-<link rel="stylesheet" href="{{ asset('css/shop_
-detail.css') }}">
+<link rel="stylesheet" href="{{ asset('css/shop_detail.css') }}">
 @endsection
 
 @section('main')
@@ -35,35 +34,59 @@ detail.css') }}">
                     <h3>予約</h3>
                 </div>
                 <div class="reservation-form">
-                    <form action="" id="reservation">
-                        <input type="date" min="2024-08-17">
-                        <input class="time" type="time">
-                        <select name="select">
-                            <option value="太郎">All genre</option>
-                            <option value="次郎">次郎</option>
-                            <option value="三郎">三郎</option>
+                    <form action="/reservation/confirm" method="post">
+                    @csrf
+                        <input type="date" name="date_select" min="{{$date->format('Y-m-d')}}" value="{{request('date_select')}}" onchange="this.form.submit()">
+                        <select name="time_select" onchange="this.form.submit()">
+                            <option value="0">予約時間</option>
+                            @foreach ($times as $time)
+                                <option value="{{$time->id}}" @if(request('time_select') == $time->id) selected @endif>
+                                {{$time->reservation_time}}
+                                </option>
+                            @endforeach
+                        </select>
+                        <select name="number_select" onchange="this.form.submit()">
+                            <option value="0">予約人数</option>
+                            @foreach ($numbers as $number)
+                                <option value="{{$number->id}}" @if(request('number_select') == $number->id) selected @endif>
+                                {{$number->number}}人
+                                </option>
+                            @endforeach
                         </select>
                     </form>
                 </div>
-                <div class="reservation-details">
-                    <table class="reservation-table">
-                        <tr>
-                            <th>Shop</th>
-                            <td><input type="text" name="shop" value="仙人" readonly></td>
-                        </tr>
-                        <tr>
-                            <th>Date</th>
-                            <td><input type="text" name="date" value="2021-04-01" readonly></td>
-                        </tr>
-                        <tr>
-                            <th>Time</th>
-                            <td><input type="text" name="time" value="17:00" readonly></td>
-                        </tr>
-                        <tr>
-                            <th>Number</th>
-                            <td><input type="text" name="number" value="1人" readonly></td>
-                        </tr>
-                    </table>
+                <div class="reservation-confirm">
+                    <form action="/reserve" id="reservation" method="post">
+                    @csrf
+                        <table class="reservation-table">
+                            <tr>
+                                <th>Shop</th>
+                                <td>{{$shop->shop_name}}</td>
+                                <input type="hidden" name="shop_name" value="{{$shop->id}}" readonly>
+                            </tr>
+                            <tr>
+                                <th>Date</th>
+                                @isset ($confirm)
+                                <td>{{$confirm['date']}}</td>
+                                <input type="hidden" name="date" value="{{$confirm['date']}}">
+                                @endisset
+                            </tr>
+                            <tr>
+                                <th>Time</th>
+                                @if (@isset($confirm) && $confirm['time'] != 0)
+                                <td>{{$timeId->reservation_time}}</td>
+                                <input type="hidden" name="time" value="{{$confirm['time']}}">
+                                @endif
+                            </tr>
+                            <tr>
+                                <th>Number</th>
+                                @if (@isset($confirm) && $confirm['number'] != 0)
+                                <td>{{$numberId->number}}人</td>
+                                <input type="hidden" name="number" value="{{$confirm['number']}}">
+                                @endif
+                            </tr>
+                        </table>
+                    </form>
                 </div>
             </div>
             <div class="reservation-btn">

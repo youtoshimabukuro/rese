@@ -17,7 +17,7 @@ class ReservationMiddleware
     public function handle(Request $request, Closure $next)
     {
         $input = "a";
-        $request->merge(['shop' => $input]);
+        $request->merge(['date' => $input]);
         return $next($request);
     }
 }

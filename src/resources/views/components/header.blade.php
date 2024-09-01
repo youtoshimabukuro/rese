@@ -9,7 +9,7 @@
             </label>
             <nav>
                 <ul>
-                    <li><a href="#">Home</a></li>
+                    <li><a href="/">Home</a></li>
                     @if(Auth::check())
                         <li>
                             <form action="/logout" method="post">
