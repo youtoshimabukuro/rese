@@ -47,8 +47,22 @@
     align-items: center;
 }
 
-.material-symbols-outlined {
-    width: 10%;
+.email,
+.lock {
+    display: flex;
+    margin-right: 3%;
+}
+
+.email::before {
+    content: url(../fonts/mail.svg);
+    width: 2vw;
+    height: 2.2vw;
+}
+
+.lock::before {
+    content: url(../fonts/key.svg);
+    width: 2vw;
+    height: 2.2vw;
 }
 
 .login_form-item input {

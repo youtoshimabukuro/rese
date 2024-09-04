@@ -77,4 +77,9 @@ class ReservationController extends Controller
         Reservation::create($form);
         return redirect('/');
     }
+
+    public function myPage()
+    {
+        return view('mypage');
+    }
 }

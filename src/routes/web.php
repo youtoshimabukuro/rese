@@ -17,6 +17,7 @@ use App\Http\Middleware\ReservationMiddleware;
 
 Route::middleware('auth')->group(function () {
     Route::get('/', [ReservationController::class,'index']);
+    Route::get('/mypage', [ReservationController::class, 'myPage']);
     Route::post('/reservation/search', [ReservationController::class, 'search']);
     Route::post('/shopDetail', [ReservationController::class, 'shopDetail']);
     Route::post('/reservation/confirm', [ReservationController::class, 'confirm']);

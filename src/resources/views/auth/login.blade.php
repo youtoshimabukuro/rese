@@ -17,7 +17,7 @@
         <form class="login_form" action="/login" method="post">
         @csrf
             <div class="login_form-item">
-                <span class="material-symbols-outlined">mail</span>
+                <span class="email"></span>
                 <input type="email" name="email" value="{{ old('email') }}" placeholder="Email">
             </div>
             <div class="form__error">
@@ -26,7 +26,7 @@
             @enderror
             </div>
             <div class="login_form-item">
-                <span class="material-symbols-outlined">lock</span>
+                <span class="lock"></span>
                 <input type="password" name="password" placeholder="password">
             </div>
             <div class="form__error">

@@ -5,11 +5,6 @@
 <link rel="stylesheet" href="{{ asset('css/register.css') }}">
 @endsection
 
-@section('symbol')
-<link rel="stylesheet"
-    href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-@endsection
-
 @section('main')
 <div class="register">
     <div class="register_inner">
@@ -17,7 +12,7 @@
         <form class="register_form" action="\register" method="post">
             @csrf
             <div class="register_form-item">
-                <span class="material-symbols-outlined">person</span>
+                <span class="user-name"></span>
                 <input type="text" name="name" value="{{ old('name') }}" placeholder="Username">
             </div>
             <div class="form__error">
@@ -26,7 +21,7 @@
                 @enderror
             </div>
             <div class="register_form-item">
-                <span class="material-symbols-outlined">mail</span>
+                <span class="email"></span>
                 <input type="email" name="email" value="{{ old('email') }}" placeholder="Email">
             </div>
             <div class="form__error">
@@ -35,7 +30,7 @@
                 @enderror
             </div>
             <div class="register_form-item">
-                <span class="material-symbols-outlined">lock</span>
+                <span class="lock"></span>
                 <input type="password" name="password" placeholder="password">
             </div>
             <div class="form__error">
