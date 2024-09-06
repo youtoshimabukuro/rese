@@ -1,6 +1,7 @@
 <?php
 
 namespace App\Http\Controllers;
+use App\Models\Favorite;
 use App\Models\Shop;
 use App\Models\City;
 use App\Models\Genre;
@@ -19,21 +20,28 @@ class ReservationController extends Controller
         $shops = Shop::with('city')->get();
         $cities = City::all();
         $genres = Genre::all();
+        $favorites = Favorite::with('user')->get();
 
-        return view('index', compact('shops', 'cities', 'genres'));
+        Session::put('shops', $shops);
+        Session::put('favorites',$favorites);
+
+        return view('index', compact('shops', 'cities', 'genres','favorites'));
     }
 
     public function search(Request $request)
     {
         $cities = City::all();
         $genres = Genre::all();
+        $favorites = Favorite::all();
 
         $shops = Shop::where('city_id', $request->city == 1 ? '>' : '=', $request->city)->
-            where('genre_id', $request->genre == 1 ? '>' : '=', $request->genre)->
-            where('shop_name', 'LIKE', "%{$request->search}%")
-            ->get();
+                        where('genre_id', $request->genre == 1 ? '>' : '=', $request->genre)->
+                        where('shop_name', 'LIKE', "%{$request->search}%")
+                        ->get();
 
-        return view('index', compact('cities', 'genres', 'shops'));
+        Session::put('shops', $shops);
+
+        return view('index', compact('cities', 'genres', 'shops','favorites'));
     }
 
     public function shopDetail(Request $request)
@@ -46,6 +54,31 @@ class ReservationController extends Controller
         Session::put('date', $date);
 
         return view('shop_detail', compact('shop', 'times', 'numbers', 'date'));
+    }
+
+    public function favorite (Request $request)
+    {
+        $shops = Session::get('shops');
+        $cities = City::all();
+        $genres = Genre::all();
+
+        $favorite = Favorite::where('user_id',Auth::id())->
+                                where('shop_id',$request->favorite)
+                                ->first();
+
+        if ($favorite==null){
+            $form = [
+                        'user_id' => Auth::id(),
+                        'shop_id' => $request->favorite,
+                    ];
+                    Favorite::create($form);
+        } else {
+            Favorite::find($favorite->id)->delete();
+        }
+
+        $favorites = Favorite::with('user')->get();
+
+        return view('index', compact('shops', 'cities', 'genres','favorites'));
     }
 
     public function Confirm(Request $request)
@@ -69,6 +102,7 @@ class ReservationController extends Controller
     {
         $form = [
             'user_id' => Auth::id(),
+            'shop_id' => $request->shop_name,
             'date' => $request->date,
             'time_id' => $request->time,
             'number_id' => $request->number
@@ -80,6 +114,8 @@ class ReservationController extends Controller
 
     public function myPage()
     {
-        return view('mypage');
+        $reservations = Reservation::paginate(1);
+
+        return view('mypage',compact('reservations'));
     }
 }

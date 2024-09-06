@@ -1,4 +1,3 @@
-
 @extends('layouts.app')
 
 @section('css')
@@ -13,18 +12,18 @@
 @section('search')
 <div class="search">
     <form action="/reservation/search" method="post">
-    @csrf
+        @csrf
         <select name="city" onchange="this.form.submit()">
             @foreach($cities as $city)
                 <option value="{{$city->id}}" @if(request('city') == $city->id) selected @endif>
-                {{$city->city}}
+                    {{$city->city}}
                 </option>
             @endforeach
         </select>
         <select name="genre" onchange="this.form.submit()">
             @foreach ($genres as $genre)
                 <option value="{{$genre->id}}" @if(request('genre') == $genre->id) selected @endif>
-                {{$genre->genre}}
+                    {{$genre->genre}}
                 </option>
             @endforeach
         </select>
@@ -43,8 +42,7 @@
         @foreach ($shops as $shop)
             <div class="shop-all_item">
                 <div class="shop-img-box">
-                    <img src="{{$shop->shop_img}}" alt=""
-                        class="shop-img">
+                    <img src="{{$shop->shop_img}}" alt="" class="shop-img">
                 </div>
                 <h4 class="shop-name">{{$shop->shop_name}}</h4>
                 <div class="shop-tag-box">
@@ -54,13 +52,22 @@
                 <div class="shop-bottom-box">
                     <div class="shop-btn">
                         <form action="/shopDetail" method="post">
-                        @csrf
+                            @csrf
                             <input type="hidden" name="id" value="{{$shop->id}}">
                             <button>詳しく見る</button>
                         </form>
                     </div>
-                    <form action="" class="favorite-form">
-                        <input type="checkbox" id="{{$shop->id}}" name="favorite">
+                    <form action="/favorite" class="favorite-form" method="post">
+                        @csrf
+                        @if (@count($favorites) > 0)
+                            @foreach ($favorites as $favorite)
+                                <input type="checkbox" id="{{$shop->id}}" @if ($shop->id == $favorite->shop_id) checked @endif
+                                    onchange="this.form.submit()">
+                            @endforeach
+                        @else
+                            <input type="checkbox" id="{{$shop->id}}" onchange="this.form.submit()">
+                        @endif
+                        <input type="hidden" name="favorite" value="{{$shop->id}}">
                         <label for="{{$shop->id}}" class="heart"></label>
                     </form>
                 </div>

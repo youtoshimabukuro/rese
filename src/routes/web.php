@@ -20,6 +20,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/mypage', [ReservationController::class, 'myPage']);
     Route::post('/reservation/search', [ReservationController::class, 'search']);
     Route::post('/shopDetail', [ReservationController::class, 'shopDetail']);
+    Route::post('/favorite', [ReservationController::class, 'favorite']);
     Route::post('/reservation/confirm', [ReservationController::class, 'confirm']);
     Route::post('/reserve', [ReservationController::class, 'reserve']);
 });
