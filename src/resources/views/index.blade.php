@@ -61,18 +61,37 @@
                         @csrf
                         @if (@count($favorites) > 0)
                             @foreach ($favorites as $favorite)
-                                <input type="checkbox" id="{{$shop->id}}" @if ($shop->id == $favorite->shop_id) checked @endif
+                                <input type="checkbox" id="{{$shop->id}}" 
+                                @if ($shop->id == $favorite->shop_id) checked @endif
                                     onchange="this.form.submit()">
                             @endforeach
                         @else
                             <input type="checkbox" id="{{$shop->id}}" onchange="this.form.submit()">
                         @endif
-                        <input type="hidden" name="favorite" value="{{$shop->id}}">
+                        <input type="text" name="favorite" value="{{$shop->id}}">
                         <label for="{{$shop->id}}" class="heart"></label>
                     </form>
                 </div>
             </div>
         @endforeach
+        <script>
+            var scrollPosition; 
+            var STORAGE_KEY = "scrollY";
+
+
+            function saveScrollPosition(){
+                scrollPosition = window.pageYOffset; 
+                localStorage.setItem(STORAGE_KEY, scrollPosition);
+            }
+
+            window.addEventListener("load", function(){
+                scrollPosition = localStorage.getItem(STORAGE_KEY);
+                if(scrollPosition !== null){
+                    scrollTo(0, scrollPosition);
+                }
+                window.addEventListener("scroll", saveScrollPosition, false);
+            });
+        </script>
     </div>
 </div>
 

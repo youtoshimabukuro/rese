@@ -34,7 +34,7 @@
                     <h3>予約</h3>
                 </div>
                 <div class="reservation-form">
-                    <form action="/reservation/confirm" method="post">
+                    <form action="/reserve/confirm" method="post">
                     @csrf
                         <input type="date" name="date_select" min="{{$date->format('Y-m-d')}}" value="{{request('date_select')}}" onchange="this.form.submit()">
                         <select name="time_select" onchange="this.form.submit()">
@@ -56,7 +56,7 @@
                     </form>
                 </div>
                 <div class="reservation-confirm">
-                    <form action="/reserve" id="reservation" method="post">
+                    <form action="/reserve/reserve" id="reservation" method="post">
                     @csrf
                         <table class="reservation-table">
                             <tr>

@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ReservationController;
+use App\Http\Controllers\ReserveController;
+use App\Http\Controllers\MypageController;
 use App\Http\Middleware\ReservationMiddleware;
 /*
 |--------------------------------------------------------------------------
@@ -17,10 +19,11 @@ use App\Http\Middleware\ReservationMiddleware;
 
 Route::middleware('auth')->group(function () {
     Route::get('/', [ReservationController::class,'index']);
-    Route::get('/mypage', [ReservationController::class, 'myPage']);
     Route::post('/reservation/search', [ReservationController::class, 'search']);
-    Route::post('/shopDetail', [ReservationController::class, 'shopDetail']);
     Route::post('/favorite', [ReservationController::class, 'favorite']);
-    Route::post('/reservation/confirm', [ReservationController::class, 'confirm']);
-    Route::post('/reserve', [ReservationController::class, 'reserve']);
+    Route::get('/mypage', [ReservationController::class, 'myPage']);
+    Route::post('/mypage/favorite', [MypageController::class, 'favorite']);
+    Route::post('/shopDetail', [ReservationController::class, 'shopDetail']);
+    Route::post('/reserve/confirm', [ReserveController::class, 'confirm']);
+    Route::post('/reserve/reserve', [ReserveController::class, 'reserve']);
 });

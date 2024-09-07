@@ -48,64 +48,48 @@
                         </tr>
                     </table>
                 </div>
-                <div class="link">
-                    <span>{{$reservations->links()}}</span>
-                </div>
             @endforeach
-            
+            <div class="link">
+                <span>{{$reservations->links()}}</span>
+            </div>
         </div>
         <div class="favorite">
             <div class="user">
-                <h3>testさん</h3>
+                <h3>{{Auth::user()->name}}さん</h3>
             </div>
             <div class="reservation-ttl">
                 <h3>お気に入り店舗</h3>
             </div>
             <div class="favorite-shop">
-                <div class="shop-all_item">
-                    <div class="shop-img-box">
-                        <img src="https://coachtech-matter.s3-ap-northeast-1.amazonaws.com/image/sushi.jpg" alt=""
-                            class="shop-img">
-                    </div>
-                    <h4 class="shop-name">仙人</h4>
-                    <div class="shop-tag-box">
-                        <p class="shop-city">#東京</p>
-                        <p class="shop-genre">#寿司</p>
-                    </div>
-                    <div class="shop-bottom-box">
-                        <div class="shop-btn">
-                            <form action="">
-                                <button>詳しく見る</button>
+                @foreach ($favorites as $favorite)
+                    <div class="shop-all_item">
+                        <div class="shop-img-box">
+                            <img src="{{$favorite->shop->shop_img}}" alt=""
+                                class="shop-img">
+                        </div>
+                        <h4 class="shop-name">{{$favorite->shop->shop_name}}</h4>
+                        <div class="shop-tag-box">
+                            <p class="shop-city">#{{$favorite->shop->city->city}}</p>
+                            <p class="shop-genre">#{{$favorite->shop->genre->genre}}</p>
+                        </div>
+                        <div class="shop-bottom-box">
+                            <div class="shop-btn">
+                                <form action="">
+                                    <button>詳しく見る</button>
+                                </form>
+                            </div>
+                            <form action="/mypage/favorite" class="favorite-form" method="post">
+                            @csrf
+                                <input type="checkbox" id="{{$favorite->shop->id}}" onchange="this.form.submit()" checked>
+                                <input type="hidden" name="favorite" value="{{$favorite->shop->id}}">
+                                <label for="{{$favorite->shop->id}}" class="heart"></label>
                             </form>
                         </div>
-                        <form action="" class="favorite-form">
-                            <input type="checkbox" id="1" name="favorite" onchange="this.form.submit()">
-                            <label for="1" class="heart"></label>
-                        </form>
                     </div>
-                </div>
-                <div class="shop-all_item">
-                    <div class="shop-img-box">
-                        <img src="https://coachtech-matter.s3-ap-northeast-1.amazonaws.com/image/sushi.jpg" alt=""
-                            class="shop-img">
-                    </div>
-                    <h4 class="shop-name">仙人</h4>
-                    <div class="shop-tag-box">
-                        <p class="shop-city">#東京</p>
-                        <p class="shop-genre">#寿司</p>
-                    </div>
-                    <div class="shop-bottom-box">
-                        <div class="shop-btn">
-                            <form action="">
-                                <button>詳しく見る</button>
-                            </form>
-                        </div>
-                        <form action="" class="favorite-form">
-                            <input type="checkbox" id="1" name="favorite" onchange="this.form.submit()">
-                            <label for="1" class="heart"></label>
-                        </form>
-                    </div>
-                </div>
+                @endforeach
+            </div>
+            <div class="favorite_link">
+                <span>{{$favorites->links()}}</span>
             </div>
         </div>
     </div>
