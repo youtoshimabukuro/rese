@@ -7,6 +7,25 @@
 @section('symbol')
 <link rel="stylesheet"
     href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+
+<script>
+    var scrollPosition; 
+    var STORAGE_KEY = "scrollY";
+
+
+    function saveScrollPosition(){
+        scrollPosition = window.pageYOffset; 
+        localStorage.setItem(STORAGE_KEY, scrollPosition);
+    }
+
+    window.addEventListener("load", function(){
+        scrollPosition = localStorage.getItem(STORAGE_KEY);
+        if(scrollPosition !== null){
+            scrollTo(0, scrollPosition);
+        }
+        window.addEventListener("scroll", saveScrollPosition, false);
+    });
+</script>
 @endsection
 
 @section('search')
@@ -74,24 +93,6 @@
                 </div>
             </div>
         @endforeach
-        <script>
-            var scrollPosition; 
-            var STORAGE_KEY = "scrollY";
-
-
-            function saveScrollPosition(){
-                scrollPosition = window.pageYOffset; 
-                localStorage.setItem(STORAGE_KEY, scrollPosition);
-            }
-
-            window.addEventListener("load", function(){
-                scrollPosition = localStorage.getItem(STORAGE_KEY);
-                if(scrollPosition !== null){
-                    scrollTo(0, scrollPosition);
-                }
-                window.addEventListener("scroll", saveScrollPosition, false);
-            });
-        </script>
     </div>
 </div>
 

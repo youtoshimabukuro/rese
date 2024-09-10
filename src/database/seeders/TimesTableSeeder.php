@@ -16,19 +16,27 @@ class TimesTableSeeder extends Seeder
     public function run()
     {
         $param = [
-            'reservation_time' => '00:00',
+            'reservation_time' => '09:00',
         ];
         DB::table('times')->insert($param);
         $param = [
-            'reservation_time' => '00:30',
+            'reservation_time' => '09:30',
         ];
         DB::table('times')->insert($param);
         $param = [
-            'reservation_time' => '01:00',
+            'reservation_time' => '10:00',
         ];
         DB::table('times')->insert($param);
         $param = [
-            'reservation_time' => '01:30',
+            'reservation_time' => '10:30',
+        ];
+        DB::table('times')->insert($param);
+        $param = [
+            'reservation_time' => '11:00',
+        ];
+        DB::table('times')->insert($param);
+        $param = [
+            'reservation_time' => '11:30',
         ];
         DB::table('times')->insert($param);
         $param = [
@@ -46,21 +54,44 @@ class TimesTableSeeder extends Seeder
         $param = [
             'reservation_time' => '13:30',
         ];
+        $param = [
+            'reservation_time' => '14:00',
+        ];
+        DB::table('times')->insert($param);
+        $param = [
+            'reservation_time' => '14:30',
+        ];
+        DB::table('times')->insert($param);
+        $param = [
+            'reservation_time' => '15:00',
+        ];
+        DB::table('times')->insert($param);
+        $param = [
+            'reservation_time' => '15:30',
+        ];
+        DB::table('times')->insert($param);
+        $param = [
+            'reservation_time' => '16:00',
+        ];
+        DB::table('times')->insert($param);
+        $param = [
+            'reservation_time' => '16:30',
+        ];
         DB::table('times')->insert($param);
         $param = [
             'reservation_time' => '17:00',
         ];
         DB::table('times')->insert($param);
         $param = [
-            'reservation_time' => '27:30',
+            'reservation_time' => '17:30',
         ];
         DB::table('times')->insert($param);
         $param = [
-            'reservation_time' => '21:00',
+            'reservation_time' => '18:00',
         ];
         DB::table('times')->insert($param);
         $param = [
-            'reservation_time' => '21:30',
+            'reservation_time' => '18:30',
         ];
         DB::table('times')->insert($param);
     }
